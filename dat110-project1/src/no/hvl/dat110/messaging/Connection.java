@@ -32,8 +32,15 @@ public class Connection {
 
 		// TODO
 		// encapsulate the data contained in the message and write to the output stream
+		message.encapsulate(); 
+		try {
+			outStream.write(message.getData());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		throw new RuntimeException("not yet implemented");
+		//throw new RuntimeException("not yet implemented");
 
 	}
 
@@ -44,10 +51,12 @@ public class Connection {
 
 		// TODO
 		// read a segment from the input stream and decapsulate into message
+		
+		
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+		//if (true) {
+			//throw new RuntimeException("not yet implemented");
+		//}
 
 		return message;
 

@@ -7,7 +7,10 @@ public class Message {
 	private byte[] payload;
 
 	public Message(byte[] payload) {
-		this.payload = payload; // TODO: check for length within boundary
+		// TODO: check for length within boundary
+		if (payload.length < MessageConfig.SEGMENTSIZE) { 
+				this.payload = payload; 
+		}
 	}
 
 	public Message() {
@@ -21,13 +24,21 @@ public class Message {
 	public byte[] encapsulate() {
 		
 		byte[] encoded;
-		
+
 		// TODO
 		// encapulate/encode the payload of the message
 		
-		if (true) {
-		   throw new RuntimeException("not yet implemented");
+		encoded = new byte [MessageConfig.SEGMENTSIZE];
+		Integer lengthPayload = payload.length; 
+		encoded [0] = lengthPayload.byteValue();
+		
+		for(int i = 0; i<payload.length; i++) {
+			encoded[i+1] = payload[i];
 		}
+		
+		//if (true) {
+		// throw new RuntimeException("not yet implemented");
+		//}
 		
 		return encoded;
 		
@@ -37,8 +48,13 @@ public class Message {
 
 		// TODO
 		// decapsulate data in received and put in payload
+		this.payload = new byte[received[0]];
 		
-	   throw new RuntimeException("not yet implemented");
+		for(int i = 0; i < received[0]; i++) { 
+			payload[i] = received [i+1];
+		}
+		
+	   //throw new RuntimeException("not yet implemented");
 		
 	}
 }
