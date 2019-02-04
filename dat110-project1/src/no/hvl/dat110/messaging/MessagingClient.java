@@ -17,15 +17,21 @@ public class MessagingClient {
 	// connect to messaging server
 	public Connection connect() {
 
-		Socket clientSocket;
-		Connection connection = null;
-
 		// TODO
-		// create TCP socket for client and connection
+		// create TCP socket for client and connection 
+		Connection connection = null;
+		
+		try {
+			Socket clientSocket = new Socket(server, port);
+			connection = new Connection(clientSocket);
+			
+		} catch (IOException ex) {
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+			System.out.println("TCP client: " + ex.getMessage());
+			ex.printStackTrace();
+			System.exit(1);
 		}
+	
 
 		return connection;
 	}

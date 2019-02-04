@@ -35,19 +35,24 @@ public class RPCServer {
 		boolean stop = false;
 		
 		while (!stop) {
-	    
-		   int rpcid;
-		   
-		   // TODO
-		   // - receive message containing RPC request
-		   // - find the identifier for the RPC methods to invoke
-		   // - lookup the methods to be invoked
-		   // - invoke the method
-		   // - send back message containing RPC reply
 			
-		   if (true) {
-		     throw new RuntimeException("not yet implemented");
-		   }
+			 // TODO
+			   // - receive message containing RPC request
+			   // - find the identifier for the RPC methods to invoke
+			   // - lookup the methods to be invoked
+			   // - invoke the method
+			   // - send back message containing RPC reply
+			
+			Message recievedMessage = connection.receive();
+			byte [] bytes = recievedMessage.getData();
+			int rpcid = bytes [0];
+			
+			RPCImpl finn = services.get(rpcid);
+			byte[] svar = finn.invoke(bytes); 
+			
+			Message response  = new Message (svar); 
+			
+			connection.send(response);
 		   
 		   if (rpcid == RPCCommon.RPIDSTOP) {
 			   stop = true;

@@ -1,5 +1,6 @@
 package no.hvl.dat110.system.controller;
 
+import jdk.nashorn.internal.runtime.ECMAException;
 import no.hvl.dat110.rpc.RPCClient;
 import no.hvl.dat110.rpc.RPCServerStopStub;
 
@@ -9,28 +10,26 @@ public class Controller  {
 	
 	public static void main (String[] args) {
 		
-		Display display;
-		Sensor sensor;
+		// TODO
+		// create display and sensor object
 		
-		RPCClient displayclient,sensorclient;
+		Display display = new Display(); 
+		Sensor sensor = new Sensor(); 
+		
+		// create RPC clients for display device and sensor device
+		
+		RPCClient displayclient = new RPCClient(Common.DISPLAYHOST, Common.DISPLAYPORT); 
+		RPCClient sensorclient = new RPCClient(Common.DISPLAYHOST, Common.DISPLAYPORT);
 		
 		System.out.println("Controller starting ...");
 				
 		RPCServerStopStub stopdisplay = new RPCServerStopStub();
 		RPCServerStopStub stopsensor = new RPCServerStopStub();
 		
-		displayclient = new RPCClient(Common.DISPLAYHOST,Common.DISPLAYPORT);
-		sensorclient = new RPCClient(Common.SENSORHOST,Common.SENSORPORT);
-		
-		// TODO
-		// create display and sensor object
-		// create RPC clients for display device and sensor device
 		// register RPC methods in the RPC layer
-		
-		if (true) {
-			  throw new RuntimeException("not yet implemented");
-		}
-		
+		displayclient.register(display);
+		sensorclient.register(sensor);
+	
 		// register stop methods in the RPC middleware
 		displayclient.register(stopdisplay);
 		sensorclient.register(stopsensor);
@@ -38,9 +37,16 @@ public class Controller  {
 		// TODO:
 		// loop while reading from sensor and write to display via RPC
 		
-		if (true) {
-			  throw new RuntimeException("not yet implemented");
+		for (int i = 0; i < N; i++) { 
+			int value = sensor.read(); 
+			display.write(value + " °C");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+		}
+		
 		
 		stopdisplay.stop();
 		stopsensor.stop();
