@@ -8,6 +8,7 @@ public class MessagingServer {
 
 	private ServerSocket welcomeSocket;
 
+
 	public MessagingServer(int port) {
 
 		try {
@@ -22,23 +23,18 @@ public class MessagingServer {
 	}
 
 	// accept an incoming connection from a client
-	
 	public Connection accept() {
-		
-		// TODO
-		// accept TCP connection on welcome socket and create connection
-		
+
 		Connection connection = null;
 
+		// TODO
+		// accept TCP connection on welcome socket and create connection
 		try {
-
-			Socket clientSocket = welcomeSocket.accept();
-			connection = new Connection(clientSocket);
+			Socket connectionSocket = welcomeSocket.accept();
+			connection = new Connection(connectionSocket);
 			
-		} catch (IOException ex) {
-			
-			System.out.println("Messaging server: " + ex.getMessage());
-			ex.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		return connection;
@@ -58,5 +54,4 @@ public class MessagingServer {
 			}
 		}
 	}
-
 }

@@ -1,6 +1,5 @@
 package no.hvl.dat110.system.controller;
 
-import jdk.nashorn.internal.runtime.ECMAException;
 import no.hvl.dat110.rpc.RPCClient;
 import no.hvl.dat110.rpc.RPCServerStopStub;
 
@@ -19,13 +18,11 @@ public class Controller  {
 		// create RPC clients for display device and sensor device
 		
 		RPCClient displayclient = new RPCClient(Common.DISPLAYHOST, Common.DISPLAYPORT); 
-		RPCClient sensorclient = new RPCClient(Common.DISPLAYHOST, Common.DISPLAYPORT);
-		
-		System.out.println("Controller starting ...");
-				
+		RPCClient sensorclient = new RPCClient(Common.SENSORHOST, Common.SENSORPORT);
 		RPCServerStopStub stopdisplay = new RPCServerStopStub();
 		RPCServerStopStub stopsensor = new RPCServerStopStub();
 		
+		System.out.println("Controller starting ...");
 		// register RPC methods in the RPC layer
 		displayclient.register(display);
 		sensorclient.register(sensor);

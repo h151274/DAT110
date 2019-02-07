@@ -7,48 +7,37 @@ public class RPCUtils {
 
 	public static byte[] marshallString(byte rpcid, String str) {
 
-		// TODO: marshall RPC identifier and string into byte array
+		byte[] encoded = new byte[str.getBytes().length+1];
+		encoded[0] = rpcid;
 		
-		byte[] encoded = new byte [str.getBytes().length+1];
-		encoded [0] = rpcid;
+		byte[] s = str.getBytes();
 		
-		byte [] s = str.getBytes(); 
-		
-		for (int i = 1; i < encoded.length; i++) { 
-			encoded [i] = s[i-1];
+		for(int i = 1; i<encoded.length; i++) {
+			encoded[i] = s[i-1];
 		}
-
+		
 		return encoded;
 	}
 
 	public static String unmarshallString(byte[] data) {
 
-
-		// TODO: unmarshall String contained in data into decoded
+		String decoded = new String(Arrays.copyOfRange(data, 1, data.length));
 		
-		String decoded = new String (Arrays.copyOfRange(data, 1, data.length));
-	
-
 		return decoded;
 	}
 
 	public static byte[] marshallVoid(byte rpcid) {
 
-		// TODO: marshall RPC identifier in case of void type
-
-		byte[] encoded = new byte [1]; 
+		byte[] encoded = new byte[1];
 		
-		encoded[0] = rpcid; 
+		encoded[0] = rpcid;
 
 		return encoded;
 
 	}
 
 	public static void unmarshallVoid(byte[] data) {
-		// TODO: unmarshall void type
 		return;
-		
-
 	}
 
 	public static byte[] marshallBoolean(byte rpcid, boolean b) {
@@ -74,26 +63,21 @@ public class RPCUtils {
 
 	public static byte[] marshallInteger(byte rpcid, int x) {
 
-
-		// TODO: marshall RPC identifier and string into byte array
+		byte[] encoded = new byte[5];
 		
-		byte[] encoded = new byte [5];
+		encoded[0] = rpcid;
 		
-		encoded [0] = rpcid; 
-		byte[] buffer = ByteBuffer.allocate(4).putInt(x).array();
-		
-		for (int i = 1; i < encoded.length; i++) { 
-			encoded [i] = buffer[i-1];
+		byte[] b = ByteBuffer.allocate(4).putInt(x).array();
+		for(int i = 1; i<encoded.length; i++) {
+			encoded[i] = b[i-1];
 		}
 
 		return encoded;
 	}
 
 	public static int unmarshallInteger(byte[] data) {
-
-		// TODO: unmarshall integer contained in data
-		int decoded = ByteBuffer.wrap(Arrays.copyOfRange(data, 1, data.length)).getInt();
 		
+		int decoded = ByteBuffer.wrap(Arrays.copyOfRange(data, 1, data.length)).getInt();
 
 		return decoded;
 

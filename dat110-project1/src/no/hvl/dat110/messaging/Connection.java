@@ -34,12 +34,12 @@ public class Connection {
 		// encapsulate the data contained in the message and write to the output stream
 		try {
 			outStream.write(message.encapsulate());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Error occurred: " + e);
 		}
 
 	}
+
 
 	public Message receive() {
 
@@ -50,13 +50,11 @@ public class Connection {
 		// TODO
 		// read a segment from the input stream and decapsulate into message
 		try {
-			inStream.read(recvbuf, 0, MessageConfig.SEGMENTSIZE);
+			inStream.read(recvbuf);
+			message.decapsulate(recvbuf);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
-		message.decapsulate(recvbuf);
-
 		return message;
 
 	}
@@ -68,10 +66,8 @@ public class Connection {
 
 			outStream.close();
 			inStream.close();
-
 			socket.close();
 		} catch (IOException ex) {
-
 			System.out.println("Connection: " + ex.getMessage());
 			ex.printStackTrace();
 		}
