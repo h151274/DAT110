@@ -13,8 +13,7 @@ public class DisplayImpl implements RPCImpl {
 
 	        byte rpcid;
 	        byte[] reply;
-
-	        // TODO
+	        
 	        // implement unmarshalling, call, and marshall for write RPC method
 	        // look at how this is done int he SensorImpl for the read method
 
